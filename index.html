@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Premium Sayt -  Web Dev</title>
+    <style>
+        /* Ultra Premium CSS: Neon, 3D Parallax, Magnetic Buttons, Shader Glow */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: 'Arial', sans-serif; overflow-x: hidden; background: #000; color: #fff; 
+            cursor: none; /* Neon kursor uchun */
+        }
+        /* Neon Cursor */
+        .cursor { position: fixed; width: 20px; height: 20px; background: #00ff88; border-radius: 50%; pointer-events: none; z-index: 9999; mix-blend-mode: difference; transition: transform 0.1s; }
+        .cursor::after { content: ''; position: absolute; top: 50%; left: 50%; width: 8px; height: 8px; background: #ff00ff; border-radius: 50%; margin: -4px 0 0 -4px; transform: scale(0); animation: pulse 2s infinite; }
+        @keyframes pulse { 0%, 100% { transform: scale(0); opacity: 1; } 50% { transform: scale(1); opacity: 0.5; } }
+        /* 3D Parallax Background */
+        .bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(45deg, #0a0a0a, #1a0033, #000); z-index: -2; }
+        .layer { position: fixed; width: 200%; height: 200%; background: radial-gradient(circle, rgba(0,255,136,0.1) 0%, transparent 70%); animation: rotate 20s linear infinite; }
+        @keyframes rotate { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        /* Shader Glow Text (WebGL simulyatsiyasi CSS bilan) */
+        .glow-text { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: clamp(3rem, 10vw, 8rem); font-weight: bold; text-align: center; background: linear-gradient(45deg, #00ff88, #ff00ff, #00bfff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; filter: drop-shadow(0 0 20px #00ff88); animation: glow 2s ease-in-out infinite alternate; }
+        @keyframes glow { from { filter: drop-shadow(0 0 10px #00ff88); text-shadow: 0 0 20px #ff00ff; } to { filter: drop-shadow(0 0 30px #ff00ff); text-shadow: 0 0 40px #00ff88; } }
+        /* Magnetic Buttons */
+        .btn { position: absolute; padding: 15px 30px; background: linear-gradient(45deg, #ff00ff, #00ff88); border: none; border-radius: 50px; color: #000; font-weight: bold; font-size: 1.2rem; cursor: none; transition: all 0.3s; transform: translateZ(0); }
+        .btn:hover { transform: scale(1.1) translateZ(50px); box-shadow: 0 10px 30px rgba(255,0,255,0.5); }
+        .btn1 { bottom: 20%; left: 20%; }
+        .btn2 { bottom: 20%; right: 20%; }
+        /* Responsive va Parallax Mouse */
+        @media (max-width: 768px) { .glow-text { font-size: 3rem; } .btn { padding: 12px 24px; font-size: 1rem; } }
+        /* Content Card */
+        .card { position: absolute; top: 30%; right: 10%; width: 300px; padding: 20px; background: rgba(255,255,255,0.1); backdrop-filter: blur(10px); border-radius: 20px; box-shadow: 0 20px 40px rgba(0,0,0,0.5); }
+        @media (max-width: 768px) { .card { width: 90%; right: 5%; } }
+    </style>
+</head>
+<body>
+    <!-- 3D Parallax Layers -->
+    <div class="bg"></div>
+    <div class="layer" style="top: -50%; left: -50%; animation-direction: reverse; opacity: 0.5;"></div>
+    <div class="layer" style="top: -100%; left: -100%; animation-duration: 30s; opacity: 0.3;"></div>
+
+    <!-- Neon Cursor -->
+    <div class="cursor"></div>
+
+    <!-- Rotating 3D Glow Text -->
+    <h1 class="glow-text">Salom Dunyo! 👋<br>DATA BASE<br> Web Dev 🚀</h1>
+
+    <!-- Magnetic Buttons -->
+    <button class="btn btn1" onclick="alert('GitHub Pages - Eng yaxshi! 🔥')">GitHub haqida</button>
+    <button class="btn btn2" onclick="location.href='mailto:akbarali@example.com'">Aloqa | Telegram</button>
+
+    <!-- Shaxsiy Card -->
+    <div class="card">
+        <h3>DATA BASE</h3>
+        <p>Backend Node.js </p>
+    </div>
+
+    <script>
+        // Neon Cursor va Magnetic Effect
+        const cursor = document.querySelector('.cursor');
+        document.addEventListener('mousemove', e => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+            // Magnetic buttons
+            document.querySelectorAll('.btn').forEach(btn => {
+                const rect = btn.getBoundingClientRect();
+                const dx = e.clientX - (rect.left + rect.width / 2);
+                const dy = e.clientY - (rect.top + rect.height / 2);
+                const dist = Math.sqrt(dx * dx + dy * dy);
+                if (dist < 100) {
+                    btn.style.transform = `translate(${dx * 0.05}px, ${dy * 0.05}px) scale(1.05)`;
+                } else {
+                    btn.style.transform = 'translateZ(0)';
+                }
+            });
+        });
+
+        // Parallax Mouse Tilt
+        document.addEventListener('mousemove', e => {
+            const layers = document.querySelectorAll('.layer');
+            const x = (e.clientX / window.innerWidth) * 20;
+            const y = (e.clientY / window.innerHeight) * 20;
+            layers.forEach(layer => {
+                layer.style.transform = `translate(${x}px, ${y}px) rotateX(${y}deg) rotateY(${x}deg)`;
+            });
+        });
+
+        // Smooth Scroll va Micro-interactions
+        window.addEventListener('scroll', () => {
+            document.body.style.background = `linear-gradient(45deg, #000, hsl(${window.scrollY % 360}, 100%, 20%))`;
+        });
+    </script>
+</body>
+</html>
